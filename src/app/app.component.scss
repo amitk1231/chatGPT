@@ -1,8 +1,19 @@
-// .button-active{
-//     margin-right: 20px;
-// }
+*{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+nav{
+    background-color: #94c1e6;
+    padding: 10px !important;
+}
+button{
+    margin-right: 20px;
+    border-radius: 20px !important;
+    width: 150px;
+    height: 50px;
+}
 .button-active{
-    background-color: #9b4dca;
+    background-color: #c387e6;
     color: white;
 }
 

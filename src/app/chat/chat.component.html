@@ -16,6 +16,20 @@
     </ng-container>
   </div>
   <div class="col-md-12 text-center">
-    <label for=""></label>
+    <label *ngIf="messages.length == 0; " for="nameField"
+      >Your Messages</label
+    >
+    <input
+      [(ngModel)]="value"
+      (keyup.enter)="sendMessage()"
+      type="text"
+      class="form-control"
+    />
+    <button class="btn btn-primary" (click)="sendMessage()">Ask ChatBot</button>
+    <ng-template
+      ><span [className]="'float-right'"
+        >Total Messages: {{ messages.length }}</span
+      ></ng-template
+    >
   </div>
 </div>

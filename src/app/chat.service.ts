@@ -13,8 +13,12 @@ export class ChatService {
   conversation = new Subject<Message[]>();
   messageMap: any = {
     "Hi": "Hello",
+    "Hello": "Hi, How can I help you?",
     "Who are you?": "I'm chat bot",
-    "default": "I couldn't get it. Can you plz repeat?"
+    "What's your name?": "My name is AI Bot",
+    "What is Angular": "Angular is a frontend type-script framework",
+    "What is Angular?": "Angular is a frontend type-script framework",
+    "default": "I couldn't get it. Can you plz elaborate?"
   }
   getBotAnswer(msg: any){
     const userMessage = new Message('user', msg);
@@ -29,6 +33,6 @@ export class ChatService {
       let answer = this.messageMap[question];
       return answer || this.messageMap['default'];
   }
-
-  
+   
+   
 }
