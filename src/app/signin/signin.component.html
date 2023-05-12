@@ -1,1 +1,105 @@
-<p>signin works!</p>
+<div class="text-center">
+  <h2 style="color: blueviolet">{{ title }}</h2>
+</div>
+<form
+  [formGroup]="signupForm1"
+  (ngSubmit)="signupUser()"
+  class="card p-3 bg-light"
+>
+<table>
+  <tr>
+    <td>
+      <label for="name" style="margin-bottom: 10px">Name: </label>
+    </td>
+    <td>
+      <input type="text" placeholder="Your name..." formControlName="name" />
+      <span style="color: red" *ngIf="name && name.invalid && name.touched"
+      >This field is not valid</span
+    >
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <label for="e-mail" style="margin-bottom: 10px">E-mail: </label>
+    </td>
+    <td>
+      <input type="email" placeholder="Your email..." formControlName="email" />
+      <span style="color: red" *ngIf="email && email.invalid && email.touched"
+      >Email is not valid</span
+    >
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <label for="password" style="margin-bottom: 10px">Password: </label>
+    </td>
+    <td>
+      <input
+      type="password"
+      placeholder="Your password..."
+      formControlName="password"
+    />
+    <span
+      style="color: red"
+      *ngIf="password && password.invalid && password.touched"
+      >Plz enter a valid password</span
+    >
+    </td>
+  </tr>
+<tr class="text-center">
+  <button [disabled]="signupForm1.invalid" class="btn btn-warning">
+    Sign-up
+  </button>
+</tr>
+</table>
+</form>
+
+<!-- <form [formGroup]="signupForm1" (ngSubmit)="signupUser()" class='card p-3 bg-light'>
+  <div style="margin-left: 700px;">
+    <div class="form-group">
+      <label for="name" style="margin-bottom: 10px">Name</label>
+      <input
+        type="text"
+        id="name"
+        class="form-control"
+        placeholder="Your name..."
+        formControlName="name"
+        style="margin-bottom: 20px; width: 600px"
+        autocomplete="off"
+      />
+    </div>
+    <div class="form-group">
+      <label for="e-mail" style="margin-bottom: 10px">E-mail</label>
+      <input
+        type="email"
+        id="e-mail"
+        class="form-control"
+        placeholder="Your email..."
+        formControlName="email"
+        style="margin-bottom: 20px; width: 600px"
+        autocomplete="off"
+      />
+    </div>
+    <div class="form-group">
+      <label for="password" style="margin-bottom: 10px">Password</label>
+      <input
+        type="password"
+        id="password"
+        class="form-control"
+        placeholder="Your password..."
+        formControlName="password"
+        style="margin-bottom: 20px; width: 600px"
+        autocomplete="off"
+      />
+    </div>
+    <div class="text-center" >
+      <button
+        type="button"
+        class="btn btn-warning"
+        style="margin: 10px 690px 0 0"
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+</form> -->

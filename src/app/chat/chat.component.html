@@ -16,9 +16,7 @@
     </ng-container>
   </div>
   <div class="col-md-12 text-center">
-    <label *ngIf="messages.length == 0; " for="nameField"
-      >Your Messages</label
-    >
+    <label *ngIf="messages.length == 0" for="nameField">Your Messages</label>
     <input
       [(ngModel)]="value"
       (keyup.enter)="sendMessage()"
