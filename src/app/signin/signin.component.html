@@ -46,6 +46,23 @@
     >
     </td>
   </tr>
+  <tr>
+    <td>
+      <label for="cpassword" style="margin-bottom: 10px">Confirm Password: </label>
+    </td>
+    <td>
+      <input
+      type="password"
+      placeholder="Re-enter your password..."
+      formControlName="cpassword"
+    />
+    <span
+      style="color: red"
+      *ngIf="password && password.invalid && password.touched"
+      >Entered password doesn't match</span
+    >
+    </td>
+  </tr>
 <tr class="text-center">
   <button [disabled]="signupForm1.invalid" class="btn btn-warning">
     Sign-up

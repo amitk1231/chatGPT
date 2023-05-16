@@ -22,6 +22,10 @@ export class SigninComponent {
       Validators.required,
       Validators.minLength(5),
     ]),
+    cpassword: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5),
+    ]),
   });
 
   signupUser() {
