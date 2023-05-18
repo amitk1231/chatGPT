@@ -1,0 +1,158 @@
+<form [formGroup]="myForm" class="form-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Profile Information</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-label>First Name: </mat-label>
+          <mat-form-field class="full-width">
+            <input
+              formControlName="firstname"
+              matInput
+              placeholder="First name"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-label>Last Name: </mat-label>
+          <mat-form-field class="full-width">
+            <input
+              formControlName="lastname"
+              matInput
+              placeholder="Last name"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-label>Email: </mat-label>
+          <mat-form-field class="full-width">
+            <input formControlName="email" matInput placeholder="Email" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <mat-label>Description: </mat-label>
+          <mat-form-field class="full-width">
+            <textarea
+              formControlName="desc"
+              matInput
+              placeholder="Description"
+            ></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 top-padding">
+          <mat-label>Select DOB</mat-label>
+          <mat-form-field class="full-width" appearance="fill">
+            <input
+              formControlName="dob"
+              matInput
+              [matDatepicker]="picker"
+              [max]="maxDate"
+              placeholder="Choose a date"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <mat-label>Select gender: </mat-label>
+          <mat-radio-group
+            formControlName="gender"
+            class="margin-left"
+            aria-label="Select gender"
+          >
+            <mat-radio-button value="male"> Male </mat-radio-button>
+            <mat-radio-button value="female"> Female </mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        (click)="onSubmit()"
+        style="margin-left: 300px"
+      >
+        Save
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>
+
+<!-- <div class="px-5">
+  <form class="col-md-6 form-container" [formGroup]="myForm" (ngSubmit)="onSubmit()" style="border: 1 px solid blue">
+    <table>
+      <tr>
+        <td>
+          <label for="firstname" class="mt-3">First Name: </label>
+        </td>
+        <td>
+          <input
+            class="mt-3"
+            type="text"
+            id="firstname"
+            placeholder="First Name..."
+            formControlName="firstname"
+          />
+          <div>
+            <small *ngIf="myForm.get('firstname').errors?.['required']"
+              >First name is a required field.
+            </small>
+            <small *ngIf="myForm.get('firstname').errors?.['noSpaceAllowed']"> First name cannot contain a space. </small>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="lastname" class="mt-3">Last Name: </label>
+        </td>
+        <td>
+          <input
+            class="mt-3"
+            type="text"
+            id="lastname"
+            placeholder="Last name..."
+            formControlName="lastname"
+          />
+          <div>
+            <small *ngIf="myForm.get('lastname').errors?.['required']">Last name is a required field</small>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="email" class="mt-3">E-mail: </label>
+        </td>
+        <td>
+          <input
+            class="mt-3"
+            type="email"
+            id="email"
+            placeholder="Your email..."
+            formControlName="email"
+          />
+          <div>
+            <small *ngIf="myForm.get('email').errors?.['required']">E-mail is a required field.</small>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>Description:</td>
+        <td>
+          <textarea id="" cols="30" rows="10" formControlName="desc"></textarea>
+        </td>
+      </tr>
+      <button class="btn btn-primary mt-3" type="submit">Submit</button>
+    </table>
+  </form>
+</div> -->

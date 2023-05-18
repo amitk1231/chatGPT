@@ -1,22 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NotificationService } from '../notification.service';
-
+import { interval, take, takeUntil, timer } from 'rxjs';
 @Component({
   selector: 'app-home',
-  template: `
-  <p>
-    Enter message: <input type="text" #message />
-    <br><br>
-    <button (click)="sendMessage(message)">Send Message</button>
-  </p>
-  `,
-  styleUrls: ['./home.component.scss']
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  constructor(private notificatioS: NotificationService) {}
 
-  constructor(private notificationS: NotificationService){ }
-   
-  sendMessage(data: any){
-     this.notificationS.sendNotification(data.value);
+  ngOnInit(): void {
+    const source$ = interval(1000);  
+    const timer$ = timer(4000);
+
+    source$.pipe(takeUntil(timer$)).subscribe((count) => {
+      console.log(count);
+    });
+  }
+
+  sendMessage(data) {
+    this.notificatioS.sendNotification(data.value);
   }
 }

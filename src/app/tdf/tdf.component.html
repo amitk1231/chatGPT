@@ -1,0 +1,505 @@
+<!-- <button style="position: absolute; right: 1%" mat-icon-button aria-label="close dialog" onclick="this.blur()" (click)="saveAsDraft()">
+  <mat-icon>close</mat-icon>
+</button>
+<div class="loading-info" *ngIf="data.CategoryField.configStatus === 'Draft' ? !isDraftDataLoading() : !isDataLoading; else content">
+  <mat-progress-spinner diameter="100" mode="indeterminate" color="accent"> </mat-progress-spinner>
+  <p>Please wait, while the data is being fetched...</p>
+</div>
+<ng-template #content>
+  <div class="content">
+    <div class="shift-top">
+      <h2 style="padding: 0px !important; margin: 0px">Configure Category Value</h2>
+      <div mat-dialog-content class="form-content" [formGroup]="form">
+        <mat-stepper [linear]="false" completed="false" #stepper>
+          <mat-step label="General">
+            <h4 style="margin-top: 5px">Configure Filters to narrow down the aircraft profile</h4>
+            <div class="step1-form">
+              <div class="form-group">
+                <label for="category-value">Category Value</label>
+                <input type="text" id="category-value" formControlName="categoryValue" class="form-control" style="width: 45%" />
+              </div>
+              <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" id="description" formControlName="description" class="form-control" style="width: 95%" />
+              </div>
+              <div class="form-part">
+                <div class="left-form">
+                  <div class="form-group">
+                    <label for="date-range">Date Range (Required)</label>
+                    <mat-form-field id="date-range" appearance="outline">
+                      <mat-date-range-input [rangePicker]="picker" formGroupName="dateRange" [min]="minDateRange" [max]="maxDateRange">
+                        <input matStartDate formControlName="from" />
+                        <input matEndDate formControlName="to" (dateChange)="onDateRangeChange($event)" />
+                      </mat-date-range-input>
+                      <mat-datepicker-toggle matSuffix [for]="picker" onblur="this.blur()"></mat-datepicker-toggle>
+                      <mat-date-range-picker #picker>
+                        <mat-date-range-picker-actions>
+                          <button mat-button matDateRangePickerCancel>Cancel</button>
+                          <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
+                        </mat-date-range-picker-actions>
+                      </mat-date-range-picker>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group">
+                    <label for="delivery-date">Delivery Date</label>
+                    <mat-form-field id="delivery-date" appearance="outline">
+                      <mat-date-range-input
+                        [rangePicker]="deliveryDatePicker"
+                        formGroupName="deliveryDate"
+                        [min]="minDeliveryRange"
+                        [max]="maxDeliveryRange"
+                      >
+                        <input matStartDate formControlName="from" />
+                        <input matEndDate formControlName="to" />
+                      </mat-date-range-input>
+                      <mat-datepicker-toggle matSuffix [for]="deliveryDatePicker"></mat-datepicker-toggle>
+                      <mat-date-range-picker #deliveryDatePicker
+                        ><mat-date-range-picker-actions>
+                          <button mat-button matDateRangePickerCancel>Cancel</button>
+                          <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
+                        </mat-date-range-picker-actions></mat-date-range-picker
+                      >
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group">
+                    <div style="display: flex; gap: 4px">
+                      <label for="model">Model</label>
+                      <loading-spinner *ngIf="isDateRangeDataLoading" color="grey" [size]="2" [diameter]="7"></loading-spinner>
+                    </div>
+                    <mat-form-field class="form-select mat-form-select" id="model" appearance="outline">
+                      <mat-select
+                        formControlName="model"
+                        (click)="formFieldDropdownClicked(aircraftProfileFilterData.Model)"
+                        [disabled]="isDateRangeDataLoading || form.get('dateRange').status === 'INVALID'"
+                      >
+                        <mat-option>
+                          <div [formGroup]="aircraftProfileFilterData.Model">
+                            <ngx-mat-select-search
+                              [searching]="aircraftProfileFilterData.Model.value.isSearching"
+                              formControlName="searchValue"
+                              placeholderLabel="Please enter more than 3 characters"
+                              [noEntriesFoundLabel]="matOptionSearchLabel"
+                            ></ngx-mat-select-search>
+                          </div>
+                        </mat-option>
+                        <mat-progress-bar mode="indeterminate" *ngIf="searchingMatOption"></mat-progress-bar>
+                        <mat-option
+                          [value]="model"
+                          *ngFor="let model of aircraftProfileFilterData.Model.value.emitValuesToDisplay$ | async"
+                        >
+                          {{ model }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group">
+                    <div style="display: flex; gap: 4px">
+                      <label for="series">Series</label>
+                      <loading-spinner *ngIf="isDateRangeDataLoading" color="grey" [size]="2" [diameter]="7"></loading-spinner>
+                    </div>
+                    <mat-form-field class="form-select mat-form-select" id="series" appearance="outline">
+                      <mat-select
+                        multiple
+                        formControlName="series"
+                        (click)="formFieldDropdownClicked(aircraftProfileFilterData.Series)"
+                        [disabled]="isDateRangeDataLoading || form.get('dateRange').status === 'INVALID'"
+                      >
+                        <mat-option>
+                          <div [formGroup]="aircraftProfileFilterData.Series">
+                            <ngx-mat-select-search
+                              [searching]="aircraftProfileFilterData.Series.value.isSearching"
+                              formControlName="searchValue"
+                              placeholderLabel="Please enter more than 3 characters"
+                              [noEntriesFoundLabel]="matOptionSearchLabel"
+                            ></ngx-mat-select-search>
+                          </div>
+                        </mat-option>
+                        <mat-progress-bar mode="indeterminate" *ngIf="searchingMatOption"></mat-progress-bar>
+                        <mat-option
+                          *ngFor="let series of aircraftProfileFilterData.Series.value.emitValuesToDisplay$ | async"
+                          [value]="series"
+                        >
+                          {{ series }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group">
+                    <div style="display: flex; gap: 4px">
+                      <label for="engine-type">Engine Type</label>
+                      <loading-spinner *ngIf="isDateRangeDataLoading" color="grey" [size]="2" [diameter]="7"></loading-spinner>
+                    </div>
+                    <mat-form-field class="form-select mat-form-select" id="engine-type" appearance="outline">
+                      <mat-select
+                        multiple
+                        formControlName="engineType"
+                        (click)="formFieldDropdownClicked(aircraftProfileFilterData['Engine Type'])"
+                        [disabled]="isDateRangeDataLoading || form.get('dateRange').status === 'INVALID'"
+                      >
+                        <mat-option>
+                          <div [formGroup]="aircraftProfileFilterData['Engine Type']">
+                            <ngx-mat-select-search
+                              [searching]="aircraftProfileFilterData['Engine Type'].value.isSearching"
+                              formControlName="searchValue"
+                              placeholderLabel="Please enter more than 3 characters"
+                              [noEntriesFoundLabel]="matOptionSearchLabel"
+                            ></ngx-mat-select-search>
+                          </div>
+                        </mat-option>
+                        <mat-progress-bar mode="indeterminate" *ngIf="searchingMatOption"></mat-progress-bar>
+                        <mat-option
+                          [value]="engineType"
+                          *ngFor="let engineType of aircraftProfileFilterData['Engine Type'].value.emitValuesToDisplay$ | async"
+                        >
+                          {{ engineType }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="right-form">
+                  <div class="form-group">
+                    <label for="ata">Boeing ATA</label>
+                    <div style="display: flex">
+                      <input type="text" id="category-value" formControlName="ata" class="form-control" style="width: 50%" />
+                      <mat-icon
+                        matTooltip="Supports up to 4 digit ATA's. Separate multiple ATA's with a comma."
+                        matTooltipPosition="after"
+                        matTooltipClass="ata-tooltip"
+                        class="show-help-icon"
+                      >
+                        help
+                      </mat-icon>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="aircraft-age-range">Aircraft Age Range (months)</label>
+                    <div id="aircraft-age-range" formGroupName="aircraftAgeRange">
+                      <input class="form-control" id="age-range-box" formControlName="from" />
+                      -
+                      <input class="form-control" id="age-range-box" formControlName="to" />
+                      <div class="aircraft-age-error" *ngIf="this.form.get('aircraftAgeRange').get('to').value > maximumAircraftAge">
+                        <mat-icon>error</mat-icon> Maximum value is
+                        {{ maximumAircraftAge }}
+                      </div>
+                    </div>
+                  </div>
+                  <div style="width: fit-content; margin-top: 10%">
+                    <div class="form-group" formArrayName="sliderControls" *ngFor="let slider of rangeSliderData; let i = index">
+                      <label class="ngx-form-label">
+                        {{ slider.title }}
+                        <div class="ngx-form-label-values">
+                          {{ form.value.sliderControls[i][0] }} -
+                          {{ form.value.sliderControls[i][1] }}
+                          {{ slider.units }}
+                        </div>
+                      </label>
+                      <ngx-slider
+                        [value]="slider.minValue"
+                        [highValue]="slider.maxValue"
+                        [options]="slider.options"
+                        [manualRefresh]="manualRefresh"
+                        [formControlName]="i"
+                      ></ngx-slider>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-step>
+          <mat-step label="Event Selection">
+            <div style="display: flex; flex-direction: column">
+              <div class="form-fill-description">Select desired event types.</div>
+              <div *ngFor="let event of eventTypeOptions; let i = index" style="margin-bottom: 10px">
+                <mat-checkbox (change)="eventTypeToggled(i, $event)" [checked]="eventTypeOptions[i].isChecked">
+                  {{ event.name }}
+                </mat-checkbox>
+              </div>
+            </div>
+            <ng-container *ngIf="isEventTypeSelected">
+              <div class="form-fill-description primary-event-description">
+                Select the primary event, and the sequence of event occurence.
+              </div>
+              <div class="form-group">
+                <label for="primaryEventDropdown">Primary Event</label>
+                <mat-form-field class="form-select mat-form-select" id="primaryEventDropdown" appearance="outline">
+                  <mat-select formControlName="primaryEventSelected">
+                    <mat-option
+                      [value]="event"
+                      (click)="primaryEventDropdownClicked(event)"
+                      *ngFor="let event of primaryEventDropdownValues"
+                      >{{ event }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="display-form-error" *ngIf="!form.get('tableValues').valid && (form.touched || form.dirty)">
+                <mat-icon>error</mat-icon> Your selection is invalid. Please correct the errors and try again.
+              </div>
+              <div class="table-container">
+                <div class="step2-table" formArrayName="tableValues">
+                  <ng-container *ngFor="let event of form.get('tableValues').controls; let j = index" [formGroupName]="j">
+                    <ng-container formArrayName="eventInstances" *ngIf="!event.value.isPrimaryEvent">
+                      <tr *ngFor="let eventInstance of event.get('eventInstances').controls; let i = index" [formGroupName]="i">
+                        <td>
+                          {{ event.value.name }}
+                          <ng-container *ngIf="event.value.eventInstances.length > 1">{{ i + 1 }}</ng-container>
+                        </td>
+                        <td>
+                          <input class="form-control" formControlName="firstInput" />
+                        </td>
+                        <td>days</td>
+                        <td>
+                          <mat-form-field class="form-select mat-form-select" appearance="outline">
+                            <mat-select formControlName="firstSelect">
+                              <mat-option value="before">before</mat-option>
+                              <mat-option value="after">after</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </td>
+                        <td>primary event until</td>
+                        <td>
+                          <input class="form-control" formControlName="secondInput" />
+                        </td>
+                        <td>days</td>
+                        <td>
+                          <mat-form-field class="form-select mat-form-select" appearance="outline">
+                            <mat-select
+                              formControlName="secondSelect"
+                              [value]="eventInstance.value.firstSelect === 'after' ? 'after' : 'before'"
+                              [disabled]="eventInstance.value.firstSelect === 'after'"
+                            >
+                              <mat-option value="before">before</mat-option>
+                              <mat-option value="after" [disabled]="event.value.eventInstances.length > 1">after</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </td>
+                        <td>
+                          <button
+                            mat-icon-button
+                            *ngIf="form.get('tableValues')['controls'][j]['controls']['eventInstances']['controls'].length < 2"
+                            (click)="addSameEventInstanceToTable(event.value.name)"
+                            [ngClass]="{
+                              'add-instance-button-disabled':
+                                eventInstance.value.firstSelect &&
+                                eventInstance.value.secondSelect &&
+                                eventInstance.value.firstSelect !== eventInstance.value.secondSelect
+                            }"
+                            [disabled]="
+                              eventInstance.value.firstSelect &&
+                              eventInstance.value.secondSelect &&
+                              eventInstance.value.firstSelect !== eventInstance.value.secondSelect
+                            "
+                          >
+                            <mat-icon>add_circle</mat-icon>
+                          </button>
+                          <div class="tooltip">The Add button is disabled for events which occur before and after a primary event.</div>
+                          <button
+                            mat-icon-button
+                            *ngIf="form.get('tableValues')['controls'][j]['controls']['eventInstances']['controls'].length > 1 && i > 0"
+                            (click)="removeSameEventInstanceFromTable(event.value.name, i)"
+                          >
+                            <mat-icon>remove_circle</mat-icon>
+                          </button>
+                        </td>
+                      </tr>
+                    </ng-container>
+                  </ng-container>
+                </div>
+              </div>
+            </ng-container>
+          </mat-step>
+          <mat-step label="Event Conditions">
+            <div style="margin-bottom: 20px">
+              Configure the conditions for events that trigger the category. You must publish the Event Condition to enable the trigger.
+            </div>
+            <div formGroupName="tableValues" class="accordion-content">
+              <ng-container *ngFor="let event of form.get('tableValues').controls; let i = index" [formGroupName]="i">
+                <ng-container formArrayName="eventInstances">
+                  <mat-accordion *ngFor="let eventInstance of event.get('eventInstances').controls; let j = index" [formGroupName]="j">
+                    <mat-expansion-panel
+                      [expanded]="currentAccordian[0] == i && currentAccordian[1] == j"
+                      hideToggle
+                      style="pointer-events: none"
+                    >
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          <button mat-icon-button (click)="openEventFormPanel(i, j); $event.stopPropagation()" style="pointer-events: auto">
+                            <mat-icon *ngIf="currentAccordian[0] != i || currentAccordian[1] != j; else expand_icon">
+                              chevron_right
+                            </mat-icon>
+                            <ng-template #expand_icon><mat-icon>expand_more</mat-icon></ng-template>
+                          </button>
+                          <div class="event-title">{{ event.value.name }}</div>
+                        </mat-panel-title>
+                        <mat-panel-description>{{ eventInstance.get('formFieldsSelected').value }} Selected</mat-panel-description>
+                      </mat-expansion-panel-header>
+                      <ng-container formArrayName="formFields">
+                        <div
+                          *ngFor="let field of eventInstance.get('formFields').controls; let k = index"
+                          class="form-holder-field"
+                          [formGroupName]="k"
+                        >
+                          <mat-checkbox
+                            class="mr-10"
+                            (change)="formFieldToggled(i, j, k, $event.checked)"
+                            [checked]="field.value.isSelected"
+                            >{{ field.value.name }}</mat-checkbox
+                          >
+                          <ng-container [ngSwitch]="field.value.SelectionType">
+                            <ng-container *ngSwitchCase="'Multi Select'">
+                              <mat-form-field class="form-select mat-form-select" appearance="outline">
+                                <mat-select
+                                  [multiple]="true"
+                                  #multiSelect
+                                  formControlName="value"
+                                  (click)="formFieldDropdownClicked(field)"
+                                >
+                                  <mat-option>
+                                    <ngx-mat-select-search
+                                      [searching]="field.value.isSearching"
+                                      formControlName="searchValue"
+                                      placeholderLabel="Please enter more than 3 characters"
+                                      [noEntriesFoundLabel]="matOptionSearchLabel"
+                                    ></ngx-mat-select-search>
+                                  </mat-option>
+                                  <mat-progress-bar mode="indeterminate" *ngIf="searchingMatOption"></mat-progress-bar>
+                                  <mat-option [value]="fieldvalue" *ngFor="let fieldvalue of field.value.emitValuesToDisplay$ | async">
+                                    {{ fieldvalue }}</mat-option
+                                  >
+                                </mat-select>
+                              </mat-form-field>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="'Single Select'">
+                              <mat-form-field class="form-select mat-form-select w-100" appearance="outline">
+                                <mat-select formControlName="value" (click)="formFieldDropdownClicked(field)">
+                                  <mat-option>
+                                    <ngx-mat-select-search
+                                      [searching]="field.value.isSearching"
+                                      formControlName="searchValue"
+                                      placeholderLabel="Please enter more than 3 characters"
+                                      [noEntriesFoundLabel]="matOptionSearchLabel"
+                                    ></ngx-mat-select-search>
+                                  </mat-option>
+                                  <mat-progress-bar mode="indeterminate" *ngIf="searchingMatOption"></mat-progress-bar>
+                                  <mat-option [value]="fieldvalue" *ngFor="let fieldvalue of field.value.emitValuesToDisplay$ | async">{{
+                                    fieldvalue
+                                  }}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="'Comma Separated Text'">
+                              <div style="display: flex">
+                                <input style="width: 175px" class="form-control w-100 ml-10" formControlName="value" />
+                                <mat-icon
+                                  matTooltip="Supports up to 4 digit ATA's. Separate multiple ATA's with a comma."
+                                  matTooltipPosition="after"
+                                  matTooltipClass="ata-tooltip"
+                                  class="show-help-icon"
+                                >
+                                  help
+                                </mat-icon>
+                              </div>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="'Logical Operator'">
+                              <mat-form-field class="form-select mat-form-select w-100" appearance="outline">
+                                <mat-select formControlName="operator" (click)="formFieldDropdownClicked(field)">
+                                  <mat-option *ngFor="let fieldvalue of logicalOperatorsDropdownOptions" [value]="fieldvalue">{{
+                                    fieldvalue
+                                  }}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                              <input class="form-control w-100 ml-10" formControlName="value" />
+                            </ng-container>
+                            <ng-container *ngSwitchCase="'Text Operator'">
+                              <mat-form-field class="form-select mat-form-select w-100" appearance="outline">
+                                <mat-select formControlName="operator" (click)="formFieldDropdownClicked(field)">
+                                  <mat-option [value]="fieldvalue" *ngFor="let fieldvalue of textOperatorsDropdownOptions">{{
+                                    fieldvalue
+                                  }}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                              <input class="form-control w-300 ml-10" formControlName="value" />
+                            </ng-container>
+                          </ng-container>
+                        </div>
+                      </ng-container>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                </ng-container>
+              </ng-container>
+            </div>
+          </mat-step>
+        </mat-stepper>
+      </div>
+    </div>
+    <div class="mat-action-buttons">
+      <button class="button button-light" (click)="saveAsDraft()">SAVE DRAFT</button>
+      <div>
+        <button class="button button-light" (click)="nextStep(false)" *ngIf="stepper.selectedIndex != firstStep">BACK</button>
+        <button
+          class="button button-dark"
+          (click)="nextStep(true)"
+          [matTooltip]="
+            stepper.selectedIndex === 1
+              ? !isFormFieldDataFetched || isDateRangeDataLoading
+                ? 'Button Disabled!! Please wait for the data to be fetched.'
+                : form.get('tableValues').value.length <= 0 || !form.get('primaryEventSelected').value || !form.get('tableValues').valid
+                ? 'Button Disabled!! \n Please fill the form correctly, before Moving to next page.'
+                : null
+              : null
+          "
+          [matTooltip]="
+            stepper.selectedIndex === 0 ? (!form.get('dateRange').valid ? 'Please select date range to move ahead' : null) : null
+          "
+          [ngStyle]="stepper.selectedIndex === 1 && !isFormFieldDataFetched && { background: '#e0e0e0' }"
+          matTooltipPosition="above"
+        >
+          <ng-container *ngIf="stepper.selectedIndex != lastStep; else publish_button"
+            ><div *ngIf="!isFormFieldDataFetched && stepper.selectedIndex === 1; else next" style="display: inline-flex">
+              <div>&nbsp;</div>
+              <div><loading-spinner color="grey" [size]="2" [diameter]="7"></loading-spinner></div>
+              <div>&nbsp;</div>
+            </div>
+            <ng-template #next>NEXT</ng-template>
+          </ng-container>
+          <ng-template #publish_button>PUBLISH</ng-template>
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template> -->
+
+
+<div class="px-5">
+  <form class="col-md-6" #userForm="ngForm" >
+    <div class="form-group mt-3">
+      <label for="firstname">First Name</label>
+      <input type="text" id="firstname" name="firstname" class="form-control" ngModel/>
+    </div>
+    <div class="form-group mt-3">
+      <label for="lastname">Last Name</label>
+      <input type="text" id="lastname" name="lastname" class="form-control" ngModel/>
+    </div>
+    <div class="form-group mt-3">
+      <label for="email">E-mail</label>
+      <input type="email" id="email" name="email" class="form-control" ngModel/>
+    </div>
+    <div class="form-group mt-3">
+      <label for="gender">Gender</label>
+      <br />
+      <input type="radio" value="male" id="gender" name="gender" ngModel/> Male
+      <br>
+      <input type="radio" value="female" id="gender" name="gender" ngModel/>Female
+    </div>
+    <br>
+    <button type="submit" style="background-color: aqua;border-radius: 10px; width: 100px;height: 30px">
+        Submit
+    </button>
+  </form>
+  <hr />
+   <p>{{ userForm.value | json }}</p>
+   <p>Valid: {{userForm.valid}}</p>
+   <p>Is touched? {{userForm.touched}}</p>
+   <p>Is submitted? {{userForm.submitted}}</p>
+</div>

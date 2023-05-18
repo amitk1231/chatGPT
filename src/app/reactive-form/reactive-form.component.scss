@@ -1,0 +1,25 @@
+input.ng-invalid.ng-touched{
+  border: 1px solid red;
+  width: 100%;
+  border-radius: 10px;
+}
+textarea.ng-invalid.ng-touched{
+    border: 1px solid rgb(228, 85, 85);
+    border-radius: 10px;
+}
+small{
+  color: red;
+}
+
+.full-width{
+  width: 100%;
+}
+.top-padding{
+  padding-top: 4px;
+}
+.form-container{
+  margin: 100px 200px;
+}
+.margin-left mat-radio-button:not(:first-child){
+  margin-left: 10px;
+}
