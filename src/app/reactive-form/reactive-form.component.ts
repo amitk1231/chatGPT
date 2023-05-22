@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-reactive-form',
@@ -11,6 +13,10 @@ export class ReactiveFormComponent implements OnInit {
   maxDate = new Date();
   myForm: FormGroup;
   NAME_VALIDATOR = '[a-zA-Z]*';
+  myControl: FormControl = new FormControl();
+  valueChangesSubscription: Subscription;
+
+  constructor(private dialog: MatDialog) {}
 
   // A validator is a function like required(), min(), max()
   ngOnInit(): void {
@@ -30,6 +36,17 @@ export class ReactiveFormComponent implements OnInit {
       ]),
       dob: new FormControl(),
       gender: new FormControl(),
+    });
+
+    this.myForm.get('firstname').valueChanges.subscribe((data) => {
+      // console.log(`Input field value changed: ${data}`);
+    });
+
+    this.myForm.markAsPristine();
+    this.myForm.markAsUntouched();
+
+    this.myForm.get(`email`).valueChanges.subscribe((data) => {
+      // console.log(data));
     });
   }
   onSubmit() {

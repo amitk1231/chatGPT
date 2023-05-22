@@ -28,6 +28,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { DialogOverviewExampleComponent } from './dialog-overview-example/dialog-overview-example.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { SecondDialogComponent } from './second-dialog/second-dialog.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { NewDialogComponent } from './new-dialog/new-dialog.component';
+
 
 @NgModule({
   declarations: [
@@ -41,6 +47,9 @@ import { MatButtonModule } from '@angular/material/button';
     HooksComponent,
     HooksChildComponent,
     ReactiveFormComponent,
+    DialogOverviewExampleComponent,
+    SecondDialogComponent,
+    NewDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +71,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatRadioModule,
     MatInputModule,
     MatButtonModule,
+    MatDialogModule,
+    MatTooltipModule
   ],
   providers: [NotificationService],
   bootstrap: [AppComponent],

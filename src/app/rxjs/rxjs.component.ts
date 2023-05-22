@@ -11,14 +11,14 @@ export class RxjsComponent implements OnInit {
   //Replay subject emits old values to new subscribers and it buffers in number of values
   ngOnInit(): void {
     const $rSubject = new ReplaySubject(2);
-    $rSubject.next('Hellooo...');
-    $rSubject.next(`What's up`);
-    $rSubject.next(`Hii....`);
+    // $rSubject.next('Hellooo...');
+    // $rSubject.next(`What's up`);
+    // $rSubject.next(`Hii....`);
     // console.log(`Console at line 15`);
-    $rSubject.subscribe((msg) => console.log(`User1: ${msg}`));
+    // $rSubject.subscribe((msg) => console.log(`User1: ${msg}`));
 
     $rSubject.next(`It was the best of time, it was the worst of time`);
     $rSubject.next(`Subject acts as an observer as well as an observable`);
-    $rSubject.subscribe((msg) => console.log(`User2: ${msg}`));
+    // $rSubject.subscribe((msg) => console.log(`User2: ${msg}`));
   }
 }

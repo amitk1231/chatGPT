@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Hi</h1>
+<mat-form-field>
+  <p>What's your favorite fruit?</p>
+  <mat-label>Favourite fruit</mat-label>
+  <input matInput [(ngModel)]="data.fruit" />
+</mat-form-field>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <!-- Here click is event binding -->
+  <button mat-raised-button mat-dialog-close={{data.fruit}}>Ok</button>
+</div>
