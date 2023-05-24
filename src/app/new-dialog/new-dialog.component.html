@@ -1,38 +1,43 @@
 <h1 mat-dialog-title>Add Event Categorization Field</h1>
-<div class="form-group">
-  <label for="type">Select type: </label>
-  <select name="type">
-    <option hidden value selected disabled>Type:</option>
-    <option value="DAX-cal-col">DAX Calculated Column</option>
-    <option value="pre-defined">Pre-defined value</option>
-    <option value="free-text">Free Text</option>
-    <option value="if-cal-col">IF Calculated Column</option>
-  </select>
-</div>
-<div class="form-group">
-  <label for="dataset">Dataset: </label>
-  <select name="dataset">
-    <option hidden value selected disabled>Dataset:</option>
-    <option value="iSDP-and-faults">ISDP & Faults</option>
-    <option value="Event-analyzer">ISDP & Faults for event analyzer</option>
-  </select>
-  <label for="datatable">Datatable: </label>
-  <select name="datatable">
-    <option hidden value selected disabled>DataTable</option>
-    <option value="faults">Faults</option>
-    <option value="interruptions">Interruptions</option>
-    <option value="removals">Removals</option>
-    <option value="logbook">Logbooks</option>
-  </select>
-</div>
-<div class="form-group">
-  <label for="name">Name</label>
-  <input matInput type="text" />
-</div>
-<div class="form-group">
-  <label for="desc">Description (optional)</label>
-  <input type="text" />
-</div>
-<div mat-dialog-actions>
-  <button mat-raised-button matToolTip="Move to next page">NEXT</button>
-</div>
+<form [formGroup]="form">
+    <div class="form-group">
+      <label for="type" class="labelCommonFont">Select type: </label>
+      <select name="type" class="form-select">
+        <option hidden value selected disabled>Type:</option>
+        <option value="DAX-cal-col">DAX Calculated Column</option>
+        <option value="pre-defined">Pre-defined value</option>
+        <option value="free-text">Free Text</option>
+        <option value="if-cal-col">IF Calculated Column</option>
+      </select>
+    </div>
+    <div>
+      <label for="dataset" class="labelCommonFont">Dataset: </label>
+      <select name="dataset" class="form-select">
+        <option hidden value selected disabled>Dataset:</option>
+        <option value="iSDP-and-faults">ISDP & Faults</option>
+        <option value="Event-analyzer">ISDP & Faults for event analyzer</option>
+      </select>
+      
+          <label for="datatable" class="labelCommonFont">Datatable: </label>
+          <select name="datatable" class="form-select">
+            <option hidden value selected disabled>DataTable</option>
+            <option value="faults">Faults</option>
+            <option value="interruptions">Interruptions</option>
+            <option value="removals">Removals</option>
+            <option value="logbook">Logbooks</option>
+          </select>
+      
+    </div>
+    <div class="form-group">
+      <label for="name" class="labelCommonFont">Name</label>
+      <input matInput type="text" name="name" class="form-control"/>
+    </div>
+    <div class="form-group">
+      <label for="desc" class="labelCommonFont">Description (optional)</label>
+      <input type="text" name="desc" class="form-control"/>
+    </div>
+    <div mat-dialog-actions align="center">
+      <button mat-button (click)="onCancel()">Cancel</button>  
+      <button mat-raised-button color="primary" matToolTip="Move to next page" (click)="onNextPage()">NEXT</button>
+    </div>
+</form>

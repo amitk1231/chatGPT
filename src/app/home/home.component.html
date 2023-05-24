@@ -13,6 +13,11 @@
     />
   </head>
   <body>
+    <mat-card>
+      <mat-card-content>Home Page</mat-card-content>
+    </mat-card>
+    <app-child></app-child>
+    <!-- <h3 *ngIf="isActivated">Activated!</h3>
     <img [src]="" alt="sun's image" height="150px" width="150px" />
     <button
       mat-raised-button
@@ -29,5 +34,35 @@
     <button (click)="changeTitle()">Change title</button>
     <app-dialog-overview-example></app-dialog-overview-example>
     <button class="add-button" matTooltip="Info about the action" (click)="onAddField()">ADD</button>
+    <br /><br /> -->
+
+    <p>Data from child: {{ userService.myData }}</p>
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of options" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+    <input
+      type="text"
+      placeholder="Pick one"
+      aria-label="Number"
+      matInput
+      [formControl]=""
+      [matAutocomplete]="auto"
+    />
+    <table mat-table class="table table-bordered mat-elevation-z8">
+     <tr class="bg-primary">
+       <th>Id</th>
+       <th>Name</th>
+       <th>Username</th>
+       <th>Email</th>
+     </tr>
+     <tr *ngFor="let user of users">
+       <td>{{user.id}}</td>
+       <td>{{user.name}}</td>
+       <td>{{user.username}}</td>
+       <td>{{user.email}}</td>
+      </tr>
+    </table>
   </body>
 </html>

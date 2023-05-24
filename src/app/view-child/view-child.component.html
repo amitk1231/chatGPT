@@ -1,0 +1,30 @@
+<h2 #highlight>View Child Component</h2>
+<h1 #highlight>This is another message</h1>
+
+<h2>
+  <mat-card style="margin-left:100px;width:50px;">
+    <mat-card-content>
+        <strong>
+            {{ child?.counter }}
+        </strong>
+    </mat-card-content>
+  </mat-card>
+</h2>
+
+<div>
+  <button
+    mat-raised-button
+    style="margin: 10px"
+    color="primary"
+    (click)="inc()"
+  >
+    Increment
+  </button>
+  <button mat-raised-button style="margin: 10px" color="accent" (click)="dec()">
+    Decrement
+  </button>
+</div>
+
+<div>
+  <app-counter #childView></app-counter>
+</div>

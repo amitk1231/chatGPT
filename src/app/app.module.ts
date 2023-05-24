@@ -33,7 +33,14 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { SecondDialogComponent } from './second-dialog/second-dialog.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NewDialogComponent } from './new-dialog/new-dialog.component';
-
+import { NestedDialogComponent } from './nested-dialog/nested-dialog.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HomeChildComponent } from './home-child/home-child.component';
+import { ChildComponent } from './home/child/child.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ViewChildComponent } from './view-child/view-child.component';
+import { CounterComponent } from './view-child/counter/counter.component';
+import { HeadersInterceptor } from './headers.interceptor';
 
 @NgModule({
   declarations: [
@@ -50,6 +57,11 @@ import { NewDialogComponent } from './new-dialog/new-dialog.component';
     DialogOverviewExampleComponent,
     SecondDialogComponent,
     NewDialogComponent,
+    NestedDialogComponent,
+    HomeChildComponent,
+    ChildComponent,
+    ViewChildComponent,
+    CounterComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,9 +84,14 @@ import { NewDialogComponent } from './new-dialog/new-dialog.component';
     MatInputModule,
     MatButtonModule,
     MatDialogModule,
-    MatTooltipModule
+    MatTooltipModule,
+    HttpClientModule,
+    MatAutocompleteModule,
   ],
-  providers: [NotificationService],
+  providers: [
+    NotificationService,
+    { provide: HTTP_INTERCEPTORS, useClass: HeadersInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

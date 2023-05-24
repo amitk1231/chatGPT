@@ -70,6 +70,8 @@
 </tr>
 </table>
 </form>
+<h3 *ngIf="isActivated">Activated!!</h3>
+<button mat-raised-button color="primary" style="margin: 20px;" (click)="onActivate()">Activate</button>
 
 <!-- <form [formGroup]="signupForm1" (ngSubmit)="signupUser()" class='card p-3 bg-light'>
   <div style="margin-left: 700px;">

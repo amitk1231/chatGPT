@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-signin',
@@ -8,9 +9,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./signin.component.scss'],
 })
 export class SigninComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private userService: UserService) {}
 
   title: string = 'Sign-up Form';
+  isActivated: boolean = false;
 
   signupForm1 = new FormGroup({
     name: new FormControl('', [
@@ -41,5 +43,10 @@ export class SigninComponent {
   }
   get password() {
     return this.signupForm1.get('password');
+  }
+
+  onActivate() {
+    this.userService.activatedEmitter.emit(true);
+    console.log('Activated!');
   }
 }

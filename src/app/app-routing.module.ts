@@ -5,6 +5,7 @@ import { ChatComponent } from './chat/chat.component';
 import { SigninComponent } from './signin/signin.component';
 import { TdfComponent } from './tdf/tdf.component';
 import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
+import { ViewChildComponent } from './view-child/view-child.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'chat', component: ChatComponent },
   { path: 'signin', component: SigninComponent},
   { path: 'tdf', component: TdfComponent},
-  { path: 'reactive-form', component: ReactiveFormComponent}
+  { path: 'reactive-form', component: ReactiveFormComponent},
+  { path: 'view-child', component: ViewChildComponent }
 ];
 
 @NgModule({

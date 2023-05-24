@@ -1,6 +1,13 @@
 .form-group{
     padding-top: 12px;
 }
-input{
-    
+input, select{
+    width: 50%;
+    margin-left: 20px;
+}
+label{
+    margin: 5px 10px;
+}
+.labelCommonFont{
+    font-size: 14px;
 }

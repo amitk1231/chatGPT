@@ -3,6 +3,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
+  //beforeEach allows us to define setup or config tasks that need to be executed before each task in a test suite.
+  //
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [

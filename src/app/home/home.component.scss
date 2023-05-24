@@ -1,15 +1,15 @@
-p{
-    border: 2px solid blue;
-    padding: 50px 20px;
-    margin: 5px 700px;
-    font-family: 'Roboto', sans-serif;
-}
+// p{
+//     border: 2px solid blue;
+//     padding: 50px 20px;
+//     margin: 5px 700px;
+//     font-family: 'Roboto', sans-serif;
+// }
 input{
     width: 60%;
     border-radius: 20px;
 }
 button{
-    background-color: aqua;
+    background-color: #00ffff;
     color: black;
     margin-left: 150px;
     width: 120px;
@@ -17,7 +17,11 @@ button{
     border-radius: 20px;
 }
 .add-button{
-    background-color: salmon;
+    background-color: rgb(162, 233, 238);
     height: 30px;
-    width: 60px
+    width: 60px;
+}
+table{
+    margin: 20px;
+    width: 60%;
 }
