@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-signin',
@@ -13,6 +14,19 @@ export class SigninComponent {
 
   title: string = 'Sign-up Form';
   isActivated: boolean = false;
+  formBuilder: FormBuilder;
+  newUser: object;
+
+  addUserForm = new FormGroup({
+    name: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[a-zA-Z ]*'),
+    ]),
+    designation: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[a-zA-Z0-9 ]*'),
+    ]),
+  });
 
   signupForm1 = new FormGroup({
     name: new FormControl('', [
@@ -48,5 +62,14 @@ export class SigninComponent {
   onActivate() {
     this.userService.activatedEmitter.emit(true);
     console.log('Activated!');
+  }
+
+  onSubmit() {
+    console.log(this.addUserForm.value);
+    let Form1 = JSON.stringify(this.addUserForm.value);
+    this.userService.addNewUser(Form1).subscribe((response: any) => {
+      console.log(response);
+      this.newUser = response;
+    });
   }
 }

@@ -41,6 +41,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ViewChildComponent } from './view-child/view-child.component';
 import { CounterComponent } from './view-child/counter/counter.component';
 import { HeadersInterceptor } from './headers.interceptor';
+import { LoggingInterceptor } from './logging.interceptor';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { HeadersInterceptor } from './headers.interceptor';
   providers: [
     NotificationService,
     { provide: HTTP_INTERCEPTORS, useClass: HeadersInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
 })

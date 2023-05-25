@@ -37,6 +37,7 @@ export class HomeComponent implements OnInit {
     this.userService.getUsers().subscribe((data) => {
       this.users = data;
     });
+    this.userService.createAndStorePost('Angular', 'A typescript framework');
   }
 
   sendMessage(data) {
@@ -50,4 +51,5 @@ export class HomeComponent implements OnInit {
       width: '950px',
     });
   }
+
 }

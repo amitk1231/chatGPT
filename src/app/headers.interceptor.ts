@@ -13,6 +13,13 @@ export class HeadersInterceptor implements HttpInterceptor {
   constructor() {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return next.handle(request);
+    const API_KEY = 'test12345';
+    const req = request.clone({
+       setHeaders: {
+         API_KEY,
+       }
+    });
+    console.log(request);
+    return next.handle(req);
   }
 }
