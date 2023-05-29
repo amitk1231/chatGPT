@@ -8,6 +8,7 @@ import { UserService } from '../user.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
+  // styles: ['body { background-color: aqua}']
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {

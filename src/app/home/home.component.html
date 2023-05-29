@@ -13,29 +13,12 @@
     />
   </head>
   <body>
+    <app-child></app-child>
+
+    <app-dialog-overview-example></app-dialog-overview-example>
     <mat-card>
       <mat-card-content>Home Page</mat-card-content>
     </mat-card>
-    <app-child></app-child>
-    <!-- <h3 *ngIf="isActivated">Activated!</h3>
-    <img [src]="" alt="sun's image" height="150px" width="150px" />
-    <button
-      mat-raised-button
-      [disabled]="btnStatus"
-      matTooltip="Info about the action"
-      aria-label="Button that displays a tooltip when focused or hovered over"
-    >
-      Click
-    </button>
-    <br /><br />
-    <img [src]="" alt="sun's image" height="150px" width="150px" />
-    <button disabled="{{ btnStatus }}">Click Interpolation</button>
-    <br /><br /><br />
-    <button (click)="changeTitle()">Change title</button>
-    <app-dialog-overview-example></app-dialog-overview-example>
-    <button class="add-button" matTooltip="Info about the action" (click)="onAddField()">ADD</button>
-    <br /><br /> -->
-
     <p>Data from child: {{ userService.myData }}</p>
     <mat-autocomplete #auto="matAutocomplete">
       <mat-option *ngFor="let option of options" [value]="option">

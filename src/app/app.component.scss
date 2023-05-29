@@ -3,7 +3,7 @@
   padding: 0 !important;
 }
 nav{
-  background-color: #94c1e6;
+  background-color: #03223b;
   padding: 10px 0px !important;
 }
 button{
@@ -13,14 +13,14 @@ button{
   height: 50px;
 }
 .button-active{
-  background-color: #c387e6;
-  color: rgb(12, 11, 12);
+  background-color: #0c0303;
+  color: rgb(255, 254, 255);
 }
 
 .button-active:hover,
 .button-active:focus{
-  background-color: #9b4dca;
-  border-color: #9b4dca;
+  background-color: #1c1122;
+  border-color: #120c16;
   color: #fff;
 }
 

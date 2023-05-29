@@ -6,6 +6,7 @@ import { SigninComponent } from './signin/signin.component';
 import { TdfComponent } from './tdf/tdf.component';
 import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
 import { ViewChildComponent } from './view-child/view-child.component';
+import { APICallComponent } from './api-call/api-call.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'signin', component: SigninComponent},
   { path: 'tdf', component: TdfComponent},
   { path: 'reactive-form', component: ReactiveFormComponent},
-  { path: 'view-child', component: ViewChildComponent }
+  { path: 'view-child', component: ViewChildComponent },
+  { path: 'api-call', component: APICallComponent}
 ];
 
 @NgModule({

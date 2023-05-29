@@ -42,6 +42,7 @@ import { ViewChildComponent } from './view-child/view-child.component';
 import { CounterComponent } from './view-child/counter/counter.component';
 import { HeadersInterceptor } from './headers.interceptor';
 import { LoggingInterceptor } from './logging.interceptor';
+import { APICallComponent } from './api-call/api-call.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { LoggingInterceptor } from './logging.interceptor';
     ChildComponent,
     ViewChildComponent,
     CounterComponent,
+    APICallComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,10 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  QueryList,
-  ViewChild,
-  ViewChildren,
-} from '@angular/core';
+import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { CounterComponent } from './counter/counter.component';
 import { ChangeDetectorRef } from '@angular/core';
 
@@ -15,9 +9,10 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class ViewChildComponent {
   @ViewChildren('highlight') marker: QueryList<any>;
-  @ViewChild('childView')child: CounterComponent;
+  @ViewChild('childView') child: CounterComponent;
+  //Here child is the variable name & childView is the selector
 
-  constructor( private cdref: ChangeDetectorRef) {}
+  constructor(private cdref: ChangeDetectorRef) {}
   ngAfterViewInit() {
     console.log(this.marker);
     this.marker.first.nativeElement.style.color = 'blue';
@@ -25,13 +20,13 @@ export class ViewChildComponent {
   }
 
   ngAfterContentChecked() {
-     this.cdref.detectChanges();
+    this.cdref.detectChanges();
   }
 
-  inc(){
+  inc() {
     this.child.increment();
   }
-  dec(){
+  dec() {
     this.child.decrement();
   }
 }

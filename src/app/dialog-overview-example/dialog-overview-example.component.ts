@@ -13,19 +13,19 @@ export interface DialogData {
   styleUrls: ['./dialog-overview-example.component.scss'],
 })
 export class DialogOverviewExampleComponent {
-  fruit: string;
+  fruit1: string;
   name1: string;
 
   constructor(public dialog: MatDialog) {}
 
-  openDialog(): void {
+  openDialog() {
     const dialogRef = this.dialog.open(SecondDialogComponent, {
-      data: { name1: this.name1, fruit: this.fruit },
+      data: { name: this.name1, fruit: this.fruit1 },
     });
-    console.log('button clicked');
+    console.log('Button clicked');
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-      this.fruit = result;
+      this.fruit1 = result;
+      console.log('The dialog is closed.');
     });
   }
 }
