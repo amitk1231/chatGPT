@@ -8,8 +8,9 @@ import { ApiServiceService } from '../api-service.service';
 })
 export class APICallComponent implements OnInit{
   constructor(private apiService: ApiServiceService){}
-  users: any;
+  users: any = [];
   isTableVisible: boolean = false;
+  errorMessage: string;
 
   ngOnInit(): void {
     // this.fetchData();
@@ -19,6 +20,8 @@ export class APICallComponent implements OnInit{
     console.log(data);
     this.users = data;
     this.isTableVisible = true;
+   },(err) => {
+    this.errorMessage = err;
    })
   }
 

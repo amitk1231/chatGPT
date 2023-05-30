@@ -1,19 +1,23 @@
 <button (click)="fetchData()">Get Users List</button>
-<h3 >
-  <table *ngIf="isTableVisible" class="table-bordered mat-elevation-z12">
-    <tr>
+<h3>
+  <div *ngIf="users.length > 0; else nousers">
+    <table *ngIf="isTableVisible" class="table-bordered mat-elevation-z12">
+      <tr>
         <th>Id</th>
         <th>Name</th>
         <th>Username</th>
         <th>E-mail</th>
-    </tr>
-    <tr *ngFor="let user of users">
-        <td>{{user.id}}</td>
-        <td>{{user.name}}</td>
-        <td>{{user.username}}</td>
-        <td>{{user.email}}</td>
-    </tr>
-   
-  </table>
+      </tr>
+      <tr *ngFor="let user of users">
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+      </tr>
+    </table>
+  </div>
+  <ng-template #nousers>
+    <p class="text-center">{{ errorMessage }}</p>
+  </ng-template>
 </h3>
-<h2>{{ 3+2 }}</h2>
+<h2>{{ 3 + 2 }}</h2>
