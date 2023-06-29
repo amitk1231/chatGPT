@@ -10,6 +10,7 @@ import { ChangeDetectorRef } from '@angular/core';
 export class ViewChildComponent {
   @ViewChildren('highlight') marker: QueryList<any>;
   @ViewChild('childView') child: CounterComponent;
+  //Here highlight is the variable name & marker is the selector
   //Here child is the variable name & childView is the selector
 
   constructor(private cdref: ChangeDetectorRef) {}

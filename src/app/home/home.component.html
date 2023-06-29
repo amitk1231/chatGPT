@@ -14,25 +14,21 @@
   </head>
   <body>
     <app-child></app-child>
-
     <app-dialog-overview-example></app-dialog-overview-example>
     <mat-card>
       <mat-card-content>Home Page</mat-card-content>
     </mat-card>
     <p>Data from child: {{ userService.myData }}</p>
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let option of options" [value]="option">
-        {{ option }}
-      </mat-option>
-    </mat-autocomplete>
-    <input
-      type="text"
-      placeholder="Pick one"
-      aria-label="Number"
-      matInput
-      [formControl]=""
-      [matAutocomplete]="auto"
-    />
+
+    <mat-form-field>
+      <mat-select placeholder="Select country" [(ngModel)]="selectedOption">
+        <mat-option *ngFor="let option of options" [value]="option" >
+          {{ option }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button (click)="sendMessage1()">Send Message</button>
+    <p *ngIf="selectedOption">You selected: {{selectedOption}}</p>
     <table mat-table class="table table-bordered mat-elevation-z8">
      <tr class="bg-primary">
        <th>Id</th>

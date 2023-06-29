@@ -15,11 +15,10 @@ export class CounterComponent {
        
    }
 
-   increment(){
+   increment() {
       this.counter++;
    }
-
-   decrement(){
+   decrement() {
       this.counter--;
    }
 

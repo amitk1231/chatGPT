@@ -23,7 +23,7 @@ export class UserService {
     // ...
     const postData: Post = { title: title, content: content };
     return this.http
-      .post<{ name: string }>('https://abc12d.com', postData)
+      .post<{ name: string }>('http://getfirebug.com/', postData)
       .subscribe((responseData) => {
         console.log(responseData);
       });

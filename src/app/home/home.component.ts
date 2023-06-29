@@ -4,6 +4,7 @@ import { interval, take, takeUntil, timer } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { NewDialogComponent } from '../new-dialog/new-dialog.component';
 import { UserService } from '../user.service';
+import { SignalRService } from '../signal-r.service';
 
 @Component({
   selector: 'app-home',
@@ -15,9 +16,11 @@ export class HomeComponent implements OnInit {
   constructor(
     private notificatioS: NotificationService,
     private dialog: MatDialog,
-    public userService: UserService 
+    public userService: UserService,
+    private signalRService: SignalRService
   ) {}
-  options: Array<string> = ['India', 'China', 'Sri Lanka'];
+  selectedOption: string;
+  options: Array<string> = ['India', 'China', 'Sri Lanka', 'Nepal'];
   imageUrl: string = 'assets/images/sun.png';
   imageUrl2: string = 'assets/images/moon.png';
   btnStatus: boolean = false;
@@ -52,5 +55,8 @@ export class HomeComponent implements OnInit {
       width: '950px',
     });
   }
-
+  sendMessage1(): void {
+    this.signalRService.sendMessage1(this.selectedOption);
+    console.log(this.selectedOption);
+  }
 }

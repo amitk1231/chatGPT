@@ -43,6 +43,7 @@ import { CounterComponent } from './view-child/counter/counter.component';
 import { HeadersInterceptor } from './headers.interceptor';
 import { LoggingInterceptor } from './logging.interceptor';
 import { APICallComponent } from './api-call/api-call.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { APICallComponent } from './api-call/api-call.component';
     MatTooltipModule,
     HttpClientModule,
     MatAutocompleteModule,
+    MatPaginatorModule
   ],
   providers: [
     NotificationService,

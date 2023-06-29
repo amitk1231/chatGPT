@@ -1,6 +1,6 @@
-<button (click)="fetchData()">Get Users List</button>
+<button mat-raised-button (click)="fetchData()" class="m-3">Get Users List</button>
 <h3>
-  <div *ngIf="users.length > 0; else nousers">
+  <div>
     <table *ngIf="isTableVisible" class="table-bordered mat-elevation-z12">
       <tr>
         <th>Id</th>
@@ -16,8 +16,13 @@
       </tr>
     </table>
   </div>
-  <ng-template #nousers>
-    <p class="text-center">{{ errorMessage }}</p>
-  </ng-template>
+  <mat-paginator
+    #paginator
+    [length]="10"
+    [pageSize]="5"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    aria-label="Select page"
+    showFirstLastButtons
+  ></mat-paginator>
 </h3>
 <h2>{{ 3 + 2 }}</h2>
